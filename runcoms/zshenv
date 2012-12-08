@@ -17,8 +17,8 @@ fi
 # Editors
 #
 
-export EDITOR='nano'
-export VISUAL='nano'
+export EDITOR='subl -w'
+export VISUAL='subl -w'
 export PAGER='less'
 
 #
@@ -98,3 +98,5 @@ if [[ -d "$TMPDIR" ]]; then
   fi
 fi
 
+# Speed up init
+skip_global_compinit=1
