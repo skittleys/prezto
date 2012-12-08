@@ -1,17 +1,6 @@
 # Load dependencies.
 pmodload 'helper'
 
-function prompt_paradox_pwd {
-  local pwd="${PWD/#$HOME/~}"
-
-  if [[ "$pwd" == (#m)[/~] ]]; then
-    _prompt_paradox_pwd="$MATCH"
-    unset MATCH
-  else
-    _prompt_paradox_pwd="${${${(@j:/:M)${(@s:/:)pwd}##.#?}:h}%/}/${pwd:t}"
-  fi
-}
-
 CURRENT_BG='NONE'
 SEGMENT_SEPARATOR='⮀'
 
@@ -43,29 +32,8 @@ prompt_end() {
   CURRENT_BG=''
 }
 
-prompt_context() {
-  local user=`whoami`
-
-  if [[ "$user" != "$DEFAULT_USER" || -n "$SSH_CLIENT" ]]; then
-    prompt_segment black default "%(!.%{%F{yellow}%}.)$user@%m"
-  fi
-}
-
-prompt_status() {
-  local symbols
-  symbols=()
-  [[ $RETVAL -ne 0 ]] && symbols+="%{%F{red}%}✘"
-  [[ $UID -eq 0 ]] && symbols+="%{%F{yellow}%}⚡"
-  [[ $(jobs -l | wc -l) -gt 0 ]] && symbols+="%{%F{cyan}%}⚙"
-
-  [[ -n "$symbols" ]] && prompt_segment black default "$symbols"
-}
-
-
 function build_prompt {
   RETVAL=$?
-  # prompt_status
-  # prompt_context
   prompt_segment black default '%(1?;%{%F{red}%}✘ ;)%(!;%{%F{yellow}%}⚡ ;)%(1j;%{%F{cyan}%}%j⚙ ;)%{%F{blue}%}%n%{%F{red}%}@%{%F{green}%}%M'
   prompt_segment blue black '%2~'
   if $git_status; then
