@@ -33,13 +33,14 @@ zstyle ':prezto:load' pmodule \
   'utility' \
   'completion' \
   'prompt' \
-  'fasd' \
   'archive' \
   'git' \
   'osx' \
   'rails' \
   'ruby' \
   'tmux' \
+  'fasd' \
+  'utility'
 
 #
 # Editor
