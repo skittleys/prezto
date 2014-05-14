@@ -29,6 +29,7 @@ setopt AUTO_LIST           # Automatically list choices on ambiguous completion.
 setopt AUTO_PARAM_SLASH    # If completed parameter is a directory, add a trailing slash.
 unsetopt MENU_COMPLETE     # Do not autoselect the first completion entry.
 unsetopt FLOW_CONTROL      # Disable start/stop characters in shell editor.
+setopt AUTO_CD             # If directory path entered without cd prepended, pretend it's there
 
 #
 # Styles
@@ -62,7 +63,7 @@ zstyle ':completion:*' group-name ''
 zstyle ':completion:*' verbose yes
 
 # Fuzzy match mistyped completions.
-zstyle ':completion:*' completer _complete _match _approximate
+zstyle ':completion:*' completer _expand _expand_alias _complete _ignored _match _correct _approximate  _prefix
 zstyle ':completion:*:match:*' original only
 zstyle ':completion:*:approximate:*' max-errors 1 numeric
 
