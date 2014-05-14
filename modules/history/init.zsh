@@ -4,6 +4,7 @@
 # Authors:
 #   Robby Russell <robby@planetargon.com>
 #   Sorin Ionescu <sorin.ionescu@gmail.com>
+#   CM (https://github.com/skittleys)
 #
 
 #
