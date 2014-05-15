@@ -208,3 +208,5 @@ alias diff='colordiff -yW"`tput cols`"'
 # colorized tree
 alias tree='tree -C'
 
+# show sizes in MB
+alias free='free -m'
