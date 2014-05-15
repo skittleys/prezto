@@ -62,7 +62,7 @@ alias type='type -a'
 # ls
 if is-callable 'dircolors'; then
   # GNU Core Utilities
-  alias ls='ls --group-directories-first'
+  alias ls='ls -A --file-type'
 
   if zstyle -t ':prezto:module:utility:ls' color; then
     if [[ -s "$HOME/.dir_colors" ]]; then
@@ -84,16 +84,16 @@ else
     # Define colors for the completion system.
     export LS_COLORS='di=34:ln=35:so=32:pi=33:ex=31:bd=36;01:cd=33;01:su=31;40;07:sg=36;40;07:tw=32;40;07:ow=33;40;07:'
 
-    alias ls='ls -G'
+    alias ls='ls -G' #stops group from being displayed
   else
     alias ls='ls -F'
   fi
 fi
 
 alias l='ls -1A'         # Lists in one column, hidden files.
-alias ll='ls -lh'        # Lists human readable sizes.
+alias ll='ls -lhA'       # Lists human readable sizes.
 alias lr='ll -R'         # Lists human readable sizes, recursively.
-alias la='ll -A'         # Lists human readable sizes, hidden files.
+#alias la='ll -A'         # Lists human readable sizes, hidden files.
 alias lm='la | "$PAGER"' # Lists human readable sizes, hidden files through pager.
 alias lx='ll -XB'        # Lists sorted by extension (GNU only).
 alias lk='ll -Sr'        # Lists sorted by size, largest last.
@@ -132,8 +132,17 @@ elif (( $+commands[wget] )); then
 fi
 
 # Resource Usage
-alias df='df -kh'
-alias du='du -kh'
+if is-callable 'dfc'; then
+  alias df='dfc -s' # colorized, sum at end (human-readable is default)
+else
+  alias df='df -h'
+fi
+
+if is-callable 'cdu'; then
+  alias du='cdu -idh' #intelligent colors by size, and human readable
+else
+  alias du='du -h'
+fi
 
 if (( $+commands[htop] )); then
   alias top=htop
@@ -185,4 +194,17 @@ function find-exec {
 function psu {
   ps -U "${1:-$USER}" -o 'pid,%cpu,%mem,command' "${(@)argv[2,-1]}"
 }
+
+
+###################
+## Extra aliases
+
+## dmesg colored and human-readable dates
+alias dmesg="dmesg -T|sed -e 's|\(^.*'`date +%Y`']\)\(.*\)|\x1b[0;34m\1\x1b[0m - \2|g'"
+
+# colordiff side-by-side
+alias diff='colordiff -yW"`tput cols`"'
+
+# colorized tree
+alias tree='tree -C'
 
