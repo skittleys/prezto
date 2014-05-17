@@ -203,6 +203,12 @@ zle -N prepend-sudo
 bindkey -d
 
 #
+# Essential Shell-wide Key Bindings
+#
+bindkey '^[[1;5C' forward-word 
+bindkey '^[[1;5D' backward-word
+
+#
 # Emacs Key Bindings
 #
 
