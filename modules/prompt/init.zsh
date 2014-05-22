@@ -5,6 +5,11 @@
 #   Sorin Ionescu <sorin.ionescu@gmail.com>
 #
 
+# Extra functions for features in prompts
+source "${ZDOTDIR:-$HOME}/modules/prompt/functions/get_short_path.zsh"
+source "${ZDOTDIR:-$HOME}/modules/prompt/functions/git-omz.zsh" 
+
+
 # Load and execute the prompt theming system.
 autoload -Uz promptinit && promptinit
 
