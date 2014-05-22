@@ -200,9 +200,9 @@ function psu {
   ps -U "${1:-$USER}" -o 'pid,%cpu,%mem,command' "${(@)argv[2,-1]}"
 }
 
-
-###################
-## Extra aliases
+#########################################
+##### Extra aliases
+#########################################
 
 ## dmesg colored and human-readable dates
 alias dmesg="dmesg -T|sed -e 's|\(^.*'`date +%Y`']\)\(.*\)|\x1b[0;34m\1\x1b[0m - \2|g'"
