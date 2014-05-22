@@ -62,7 +62,7 @@ zstyle ':completion:*' group-name ''
 zstyle ':completion:*' verbose yes
 
 # Fuzzy match mistyped completions.
-zstyle ':completion:*' completer _history _expand _expand_alias _complete _ignored _match _correct _approximate  _prefix
+zstyle ':completion:*' completer _expand _expand_alias _complete _ignored _match _correct _approximate  _prefix
 zstyle ':completion:*:match:*' original only
 zstyle ':completion:*:approximate:*' max-errors 1 numeric
 
