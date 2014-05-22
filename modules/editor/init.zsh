@@ -205,8 +205,11 @@ bindkey -d
 #
 # Essential Shell-wide Key Bindings
 #
+#bindkey "$key_info[Control]$key_info[Left]" backward-word
+#bindkey "$key_info[Control]$key_info[Right]" forward-word
 bindkey '^[[1;5C' forward-word 
 bindkey '^[[1;5D' backward-word
+
 
 #
 # Emacs Key Bindings
