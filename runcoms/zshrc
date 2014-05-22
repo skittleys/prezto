@@ -11,5 +11,13 @@ if [[ -s "${ZDOTDIR:-$HOME}/.zprezto/init.zsh" ]]; then
 fi
 
 # Customize to your needs...
+bindkey '^[[A' history-substring-search-up
+bindkey '^[[B' history-substring-search-down
+
+# keep schtuff working with sudo
+# (alternatively, sudo chsh to zsh)
+# alias sudo='nocorrect sudo '
+
+DEFAULT_USER="cm"
 
 
