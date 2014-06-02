@@ -2,7 +2,7 @@
 # Thanks to Sorin Ionescu's README
 # and Chionsas' PKGBUILD in the AUR (https://aur.archlinux.org/packages/prezto-git/)
 
-mkdir -v /usr/lib/prezto
+# mkdir -v /usr/lib/prezto
 
 ## must use --recursive option to make sure external submodules are pulled in
 # git clone --recursive https://github.com/sorin-ionescu/prezto.git /usr/lib/prezto
