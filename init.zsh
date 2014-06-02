@@ -31,7 +31,7 @@ function pmodload {
   pmodules=("$argv[@]")
 
   # Add functions to $fpath.
-  fpath=(${pmodules:+${ZDOTDIR:-$HOME}/.zprezto/modules/${^pmodules}/functions(/FN)} $fpath)
+  fpath=(${pmodules:+/usr/lib/prezto/modules/${^pmodules}/functions(/FN)} $fpath)
 
   function {
     local pfunction
