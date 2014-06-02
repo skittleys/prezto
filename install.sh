@@ -5,7 +5,7 @@
 # mkdir -v /usr/lib/prezto
 
 ## must use --recursive option to make sure external submodules are pulled in
-# git clone --recursive https://github.com/sorin-ionescu/prezto.git /usr/lib/prezto
+# git clone --recursive https://github.com/skittleys/prezto.git /usr/lib/prezto
 
 setopt EXTENDED_GLOB
 
