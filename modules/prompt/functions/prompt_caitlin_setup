@@ -6,7 +6,7 @@
 # Load dependencies.
 pmodload 'helper'
 
-function prompt_agnoster_precmd {
+function prompt_caitlin_precmd {
   setopt LOCAL_OPTIONS
   unsetopt XTRACE KSH_ARRAYS
 
@@ -45,10 +45,12 @@ prompt_end() {
 ### Prompt components
 # Each component will draw itself, and hide itself if no information needs to be shown
 
-# Context: user@hostname (who am I and where am I)
+# Context: user (who am i)
 prompt_context() {
   local user=`whoami`
 
+  # when working as another user (e.g., su), show username and make it stand out
+  # DEFAULT_USER should be specified in $HOME/.zshrc
   if [[ "$user" != "$DEFAULT_USER" || -n "$SSH_CLIENT" ]]; then
     prompt_segment red default "%(!.%{%F{blue}%}.)$user "
   fi
@@ -110,6 +112,7 @@ build_prompt_old() {
   prompt_end
 }
 
+# prompt_context is included in RPROMPT below
 build_prompt() {
   RETVAL=$?
   prompt_dir
@@ -118,7 +121,7 @@ build_prompt() {
   prompt_end
 }
 
-function prompt_agnoster_setup {
+function prompt_caitlin_setup {
   setopt LOCAL_OPTIONS
   unsetopt XTRACE KSH_ARRAYS
   prompt_opts=(cr percent subst)
@@ -127,7 +130,7 @@ function prompt_agnoster_setup {
   autoload -Uz add-zsh-hook
 
   # Add hook for calling git-info before each command.
-  add-zsh-hook precmd prompt_agnoster_precmd
+  add-zsh-hook precmd prompt_caitlin_precmd
 
   zstyle ':prezto:module:editor' completing '%B%F{red}...%f%b'
   zstyle ':prezto:module:editor:keymap:primary' overwrite ' %F{red}♺%f'
@@ -187,4 +190,4 @@ RPROMPT='$(prompt_context)%t'
 
 }
 
-prompt_agnoster_setup "$@"
+prompt_caitlin_setup "$@"
