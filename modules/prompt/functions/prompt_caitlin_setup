@@ -132,26 +132,25 @@ function prompt_caitlin_setup {
   # Add hook for calling git-info before each command.
   add-zsh-hook precmd prompt_caitlin_precmd
 
-  zstyle ':prezto:module:editor' completing '%B%F{red}...%f%b'
-  zstyle ':prezto:module:editor:keymap:primary' overwrite ' %F{red}♺%f'
-  zstyle ':prezto:module:editor:keymap' primary ' %B%F{red}❯%F{yellow}❯%F{green}❯%f%b'
-  zstyle ':prezto:module:editor:keymap' alternate ' %B%F{green}❮%F{yellow}❮%F{red}❮%f%b'
-  zstyle ':prezto:module:git' action ':%%B%F{yellow}%s%f%%b'
-  zstyle ':prezto:module:git' added ' %%B%F{green}✚%f%%b'
-  zstyle ':prezto:module:git' ahead ' %%B%F{yellow}⬆%f%%b'
-  zstyle ':prezto:module:git' behind ' %%B%F{yellow}⬇%f%%b'
-  zstyle ':prezto:module:git' branch ':%F{green}%b%f'
-  zstyle ':prezto:module:git' commit ':%F{green}%.7c%f'
-  zstyle ':prezto:module:git' deleted ' %%B%F{red}✖%f%%b'
-  zstyle ':prezto:module:git' modified ' %%B%F{blue}✱%f%%b'
-  zstyle ':prezto:module:git' position ':%F{green}%p%f'
-  zstyle ':prezto:module:git' renamed ' %%B%F{magenta}➜%f%%b'
-  zstyle ':prezto:module:git' stashed ' %%B%F{cyan}✭%f%%b'
-  zstyle ':prezto:module:git' unmerged ' %%B%F{yellow}═%f%%b'
-  zstyle ':prezto:module:git' untracked ' %%B%F{white}◼%f%%b'
-  zstyle ':prezto:module:git' info \
-    'prompt' ' %F{blue}git%f$(coalesce "%b" "%p" "%c")%s' \
-    'rprompt' '%A%B%S%a%d%m%r%U%u'
+ zstyle ':prezto:module:editor' completing '%B%F{red}...%f%b'
+ zstyle ':prezto:module:editor:keymap:primary' overwrite ' %F{red}♺%f'
+ zstyle ':prezto:module:editor:keymap' primary ' %B%F{red}❯%F{yellow}❯%F{green}❯%f%b'
+ zstyle ':prezto:module:editor:keymap' alternate ' %B%F{green}❮%F{yellow}❮%F{red}❮%f%b'
+ zstyle ':prezto:module:git' action ':%%B%F{yellow}! %s%f%%b'
+ zstyle ':prezto:module:git' added ' %%B%F{green}✚%f%%b'
+ zstyle ':prezto:module:git' ahead ' %%B%F{yellow}⬆%f%%b'
+ zstyle ':prezto:module:git' behind ' %%B%F{yellow}⬇%f%%b'
+ zstyle ':prezto:module:git' branch ':%F{green}⭠ %b%f'
+ zstyle ':prezto:module:git' commit ':%F{green}➦ %.7c%f'
+ zstyle ':prezto:module:git' deleted ' %%B%F{red}✖%f%%b'
+ zstyle ':prezto:module:git' modified ' %%B%F{blue}✱%f%%b'
+ zstyle ':prezto:module:git' position ':%F{green}%p%f'
+ zstyle ':prezto:module:git' renamed ' %%B%F{magenta}➜%f%%b'
+ zstyle ':prezto:module:git' stashed ' %%B%F{cyan}✭%f%%b'
+ zstyle ':prezto:module:git' unmerged ' %%B%F{yellow}═%f%%b'
+ zstyle ':prezto:module:git' untracked ' %%B%F{white}?%f%%b'
+ zstyle ':prezto:module:git' info \
+
     
 # Original (oh-my-zsh) theme's comments left intact:
 
