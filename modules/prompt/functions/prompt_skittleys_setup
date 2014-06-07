@@ -1,0 +1,157 @@
+# A personalized version of 
+# DigitalFormula's modified agnoster theme for Prezto/YADR (https://github.com/digitalformula/zsh.prompts)
+# with bits of David J. Rice's Powerline for Prezto (https://github.com/davidjrice/prezto_powerline)
+# and some rearranging and color changing and whatnot :)
+
+# Load dependencies.
+pmodload 'helper'
+
+CURRENT_BG='NONE'
+SEGMENT_SEPARATOR='⮀'
+
+function prompt_skittleys_precmd {
+  setopt LOCAL_OPTIONS
+  unsetopt XTRACE KSH_ARRAYS
+
+  if (( $+functions[git-info] )); then
+    git_status=git-info
+  fi
+}
+
+# Begin a segment
+# Takes two arguments, background and foreground. Both can be omitted,
+# rendering default background/foreground.
+prompt_segment() {
+  local bg fg
+  [[ -n $1 ]] && bg="%K{$1}" || bg="%k"
+  [[ -n $2 ]] && fg="%F{$2}" || fg="%f"
+  if [[ $CURRENT_BG != 'NONE' && $1 != $CURRENT_BG ]]; then
+    echo -n " %{$bg%F{$CURRENT_BG}%}$SEGMENT_SEPARATOR%{$fg%} "
+  else
+    echo -n "%{$bg%}%{$fg%} "
+  fi
+  CURRENT_BG=$1
+  #[[ -n $3 ]] && echo -n $3
+  [[ -n $3 ]] && print -Pn $3
+}
+
+# End the prompt, closing any open segments
+prompt_end() {
+  if [[ -n $CURRENT_BG ]]; then
+    echo -n " %{%k%F{$CURRENT_BG}%}$SEGMENT_SEPARATOR"
+  else
+    echo -n "%{%k%}"
+  fi
+  echo -n "%{%f%}"
+  CURRENT_BG=''
+}
+
+### Prompt components
+# Each component will draw itself, and hide itself if no information needs to be shown
+
+# Context: user (who am i)
+prompt_context() {
+  local user=`whoami`
+
+  # when working as another user (e.g., su), show username and make it stand out
+  # DEFAULT_USER should be specified in $HOME/.zshrc
+  if [[ "$user" != "$DEFAULT_USER" || -n "$SSH_CLIENT" ]]; then
+    prompt_segment red default "%(!.%{%F{blue}%f}.)$user "
+  fi
+}
+
+# Git: branch/detached head, dirty status
+prompt_git() {
+    prompt_segment blue white '${git_info[prompt]}${git_info[status]}'
+}
+
+prompt_dir() {
+  prompt_segment magenta white `get_short_path`
+}
+
+# Status:
+# - was there an error
+# - am I root
+# - are there background jobs?
+prompt_status() {
+  local symbols
+  symbols=()
+
+  if [[ $RETVAL -ne 0 ]]; then
+    prompt_segment black red "✘"
+  elif [[ $UID -eq 0 ]]; then
+    prompt_segment red yellow "⚡"
+  elif [[ $(jobs -l | wc -l) -gt 0 ]]; then
+    prompt_segment black cyan "⚙"
+  else
+    prompt_segment black black
+  fi
+}
+
+# prompt_context is included in RPROMPT below
+build_prompt() {
+  RETVAL=$?
+  prompt_dir
+  prompt_git
+  prompt_status
+  prompt_end
+}
+
+function prompt_skittleys_setup {
+  setopt LOCAL_OPTIONS
+  unsetopt XTRACE KSH_ARRAYS
+  prompt_opts=(cr percent subst)
+
+  # Load required functions.
+  autoload -Uz add-zsh-hook
+
+  # Add hook for calling git-info before each command.
+  add-zsh-hook precmd prompt_skittleys_precmd
+
+ #zstyle ':prezto:module:git' action ':%%B%F{yellow}! %s%f%%b'
+ #zstyle ':prezto:module:git' added ' %%B%F{green}✚%f%%b'
+ #zstyle ':prezto:module:git' ahead ' %%B%F{yellow}⬆%f%%b'
+ #zstyle ':prezto:module:git' behind ' %%B%F{yellow}⬇%f%%b'
+ #zstyle ':prezto:module:git' branch ':%F{green}⭠ %b%f'
+ #zstyle ':prezto:module:git' commit ':%F{green}➦ %.7c%f'
+ #zstyle ':prezto:module:git' deleted ' %%B%F{red}✖%f%%b'
+ #zstyle ':prezto:module:git' modified ' %%B%F{blue}✱%f%%b'
+ #zstyle ':prezto:module:git' position ':%F{green}%p%f'
+ #zstyle ':prezto:module:git' renamed ' %%B%F{magenta}➜%f%%b'
+ #zstyle ':prezto:module:git' stashed ' %%B%F{cyan}✭%f%%b'
+ #zstyle ':prezto:module:git' unmerged ' %%B%F{yellow}═%f%%b'
+ #zstyle ':prezto:module:git' untracked ' %%B%F{white}?%f%%b'
+ #zstyle ':prezto:module:git' info \
+      #'prompt' '$(coalesce "%b" "%p" "%c")%s' \
+      #'status' ' %A%B%S%a%d%m%r%U%u'
+
+  zstyle ':prezto:module:editor:info:completing' format '%B%F{red}...%f%b'
+  zstyle ':prezto:module:editor:info:keymap:primary' format '%B%F{blue}❯%f%b'
+  zstyle ':prezto:module:editor:info:keymap:primary:overwrite' format '%F{red}♺%f'
+  zstyle ':prezto:module:editor:info:keymap:alternate' format '%B%F{red}❮%f%b'
+  zstyle ':prezto:module:git:info' verbose 'yes'
+  zstyle ':prezto:module:git:info:action' format ' %F{yellow}! %s%f'
+  zstyle ':prezto:module:git:info:added' format ' %F{green}✚%f'
+  zstyle ':prezto:module:git:info:ahead' format ' %F{yellow}⬆%f'
+  zstyle ':prezto:module:git:info:behind' format ' %F{yellow}⬇%f'
+  zstyle ':prezto:module:git:info:branch' format '⭠ %b'
+  zstyle ':prezto:module:git:info:commit' format ':%F{green}➦ %.7c%f'
+  zstyle ':prezto:module:git:info:deleted' format ' %F{red}✖%f'
+  zstyle ':prezto:module:git:info:modified' format ' %F{black}✱%f'
+  zstyle ':prezto:module:git:info:position' format ':%F{green}%p%f'
+  zstyle ':prezto:module:git:info:renamed' format ' %F{magenta}➜%f'
+  zstyle ':prezto:module:git:info:stashed' format ' %F{cyan}✭%f'
+  zstyle ':prezto:module:git:info:unmerged' format ' %F{yellow}═%f'
+  zstyle ':prezto:module:git:info:untracked' format ' %F{white}?%f'
+  zstyle ':prezto:module:git:info:keys' format \
+    'prompt' '$(coalesce "%b" "%p" "%c")%s' \
+    'status' '%A%B%S%a%d%m%r%U%u'
+    
+#PROMPT='%{%f%b%k%}$(build_prompt) '
+PROMPT='$(build_prompt) '
+RPROMPT='$(prompt_context)%t'
+SPROMPT='zsh: correct %F{red}%R%f to %F{green}%r%f [nyae]? '
+
+}
+
+prompt_skittleys_setup "$@"
