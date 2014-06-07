@@ -11,7 +11,7 @@ function prompt_caitlin_precmd {
   unsetopt XTRACE KSH_ARRAYS
 
   if (( $+functions[git-info] )); then
-    git_status=git-info
+    git-info
   fi
 }
 
@@ -52,28 +52,26 @@ prompt_context() {
   # when working as another user (e.g., su), show username and make it stand out
   # DEFAULT_USER should be specified in $HOME/.zshrc
   if [[ "$user" != "$DEFAULT_USER" || -n "$SSH_CLIENT" ]]; then
-    prompt_segment red default "%(!.%{%F{blue}%f}.)$user "
+    prompt_segment red default "%(!.%{%F{blue}%}.)$user "
   fi
 }
 
 # Git: branch/detached head, dirty status
 prompt_git() {
-  #local ref dirty
-  if $git_status; then
-    prompt_segment green black "${git_info:+${(e)git_info[prompt]}}${git_info[status]}"
-  #if $(git rev-parse --is-inside-work-tree >/dev/null 2>&1); then
-    #ZSH_THEME_GIT_PROMPT_DIRTY='±'
-    #dirty=$(parse_git_dirty)
-    #ref=$(git symbolic-ref HEAD 2> /dev/null) || ref="➦ $(git show-ref --head -s --abbrev |head -n1 2> /dev/null)"
-    #if [[ -n $dirty ]]; then
-    #  prompt_segment green black
-    #else
-    #  prompt_segment blue white
-    #fi
-  #else
-  #  prompt_segment blue white  
+  local ref dirty
+  if $(git rev-parse --is-inside-work-tree >/dev/null 2>&1); then
+    ZSH_THEME_GIT_PROMPT_DIRTY='±'
+    dirty=$(parse_git_dirty)
+    ref=$(git symbolic-ref HEAD 2> /dev/null) || ref="➦ $(git show-ref --head -s --abbrev |head -n1 2> /dev/null)"
+    if [[ -n $dirty ]]; then
+      prompt_segment green black
+    else
+      prompt_segment blue white
+    fi
+  else
+    prompt_segment blue white  
   fi
-  #echo -n "${ref/refs\/heads\//⭠ }$dirty"
+  echo -n "${ref/refs\/heads\//⭠ }$dirty"
 }
 
 # Dir: current working directory
@@ -134,49 +132,56 @@ function prompt_caitlin_setup {
   # Add hook for calling git-info before each command.
   add-zsh-hook precmd prompt_caitlin_precmd
 
- #zstyle ':prezto:module:editor' completing '%B%F{red}...%f%b'
- #zstyle ':prezto:module:editor:keymap:primary' overwrite ' %F{red}♺%f'
- #zstyle ':prezto:module:editor:keymap' primary ' %B%F{red}❯%F{yellow}❯%F{green}❯%f%b'
- #zstyle ':prezto:module:editor:keymap' alternate ' %B%F{green}❮%F{yellow}❮%F{red}❮%f%b'
- #zstyle ':prezto:module:git' action ':%%B%F{yellow}! %s%f%%b'
- #zstyle ':prezto:module:git' added ' %%B%F{green}✚%f%%b'
- #zstyle ':prezto:module:git' ahead ' %%B%F{yellow}⬆%f%%b'
- #zstyle ':prezto:module:git' behind ' %%B%F{yellow}⬇%f%%b'
- #zstyle ':prezto:module:git' branch ':%F{green}⭠ %b%f'
- #zstyle ':prezto:module:git' commit ':%F{green}➦ %.7c%f'
- #zstyle ':prezto:module:git' deleted ' %%B%F{red}✖%f%%b'
- #zstyle ':prezto:module:git' modified ' %%B%F{blue}✱%f%%b'
- #zstyle ':prezto:module:git' position ':%F{green}%p%f'
- #zstyle ':prezto:module:git' renamed ' %%B%F{magenta}➜%f%%b'
- #zstyle ':prezto:module:git' stashed ' %%B%F{cyan}✭%f%%b'
- #zstyle ':prezto:module:git' unmerged ' %%B%F{yellow}═%f%%b'
- #zstyle ':prezto:module:git' untracked ' %%B%F{white}?%f%%b'
- #zstyle ':prezto:module:git' info \
-      #'prompt' '$(coalesce "%b" "%p" "%c")%s' \
-      #'status' ' %A%B%S%a%d%m%r%U%u'
-
-  #
-  zstyle ':prezto:module:editor:info:completing' format '%B%F{red}...%f%b'
-  zstyle ':prezto:module:editor:info:keymap:primary' format '%B%F{blue}❯%f%b'
-  zstyle ':prezto:module:editor:info:keymap:primary:overwrite' format '%F{red}♺%f'
-  zstyle ':prezto:module:editor:info:keymap:alternate' format '%B%F{red}❮%f%b'
-  zstyle ':prezto:module:git:info:action' format '! %s'
-  zstyle ':prezto:module:git:info:added' format '✚'
-  zstyle ':prezto:module:git:info:ahead' format '⬆'
-  zstyle ':prezto:module:git:info:behind' format '⬇'
-  zstyle ':prezto:module:git:info:branch' format '⭠ %b'
-  zstyle ':prezto:module:git:info:commit' format '➦ %.7c'
-  zstyle ':prezto:module:git:info:deleted' format '✖'
-  zstyle ':prezto:module:git:info:modified' format '✱'
-  zstyle ':prezto:module:git:info:position' format '%p'
-  zstyle ':prezto:module:git:info:renamed' format '➙'
-  zstyle ':prezto:module:git:info:stashed' format 's'
-  zstyle ':prezto:module:git:info:unmerged' format '═'
-  zstyle ':prezto:module:git:info:untracked' format ' %%B%F{white}◼%f%%b'
-  zstyle ':prezto:module:git:info:keys' format \
-    'prompt' '$(coalesce "%b" "%p" "%c")%s' \
-    'status' '%A%B%S%a%d%m%r%U%u'
+  zstyle ':prezto:module:editor' completing '%B%F{red}...%f%b'
+  zstyle ':prezto:module:editor:keymap:primary' overwrite ' %F{red}♺%f'
+  zstyle ':prezto:module:editor:keymap' primary ' %B%F{red}❯%F{yellow}❯%F{green}❯%f%b'
+  zstyle ':prezto:module:editor:keymap' alternate ' %B%F{green}❮%F{yellow}❮%F{red}❮%f%b'
+  zstyle ':prezto:module:git' action ':%%B%F{yellow}%s%f%%b'
+  zstyle ':prezto:module:git' added ' %%B%F{green}✚%f%%b'
+  zstyle ':prezto:module:git' ahead ' %%B%F{yellow}⬆%f%%b'
+  zstyle ':prezto:module:git' behind ' %%B%F{yellow}⬇%f%%b'
+  zstyle ':prezto:module:git' branch ':%F{green}%b%f'
+  zstyle ':prezto:module:git' commit ':%F{green}%.7c%f'
+  zstyle ':prezto:module:git' deleted ' %%B%F{red}✖%f%%b'
+  zstyle ':prezto:module:git' modified ' %%B%F{blue}✱%f%%b'
+  zstyle ':prezto:module:git' position ':%F{green}%p%f'
+  zstyle ':prezto:module:git' renamed ' %%B%F{magenta}➜%f%%b'
+  zstyle ':prezto:module:git' stashed ' %%B%F{cyan}✭%f%%b'
+  zstyle ':prezto:module:git' unmerged ' %%B%F{yellow}═%f%%b'
+  zstyle ':prezto:module:git' untracked ' %%B%F{white}◼%f%%b'
+  zstyle ':prezto:module:git' info \
+    'prompt' ' %F{blue}git%f$(coalesce "%b" "%p" "%c")%s' \
+    'rprompt' '%A%B%S%a%d%m%r%U%u'
     
+# Original (oh-my-zsh) theme's comments left intact:
+
+# vim:ft=zsh ts=2 sw=2 sts=2
+#
+# agnoster's Theme - https://gist.github.com/3712874
+# A Powerline-inspired theme for ZSH
+#
+# # README
+#
+# In order for this theme to render correctly, you will need a
+# [Powerline-patched font](https://gist.github.com/1595572).
+#
+# In addition, I recommend the
+# [Solarized theme](https://github.com/altercation/solarized/) and, if you're
+# using it on Mac OS X, [iTerm 2](http://www.iterm2.com/) over Terminal.app -
+# it has significantly better color fidelity.
+#
+# # Goals
+#
+# The aim of this theme is to only show you *relevant* information. Like most
+# prompts, it will only show git information when in a git working directory.
+# However, it goes a step further: everything from the current user and
+# hostname to whether the last call exited with an error to whether background
+# jobs are running in this shell will all be displayed automatically when
+# appropriate.
+
+### Segment drawing
+# A few utility functions to make it easy and re-usable to draw segmented prompts
+
 CURRENT_BG='NONE'
 SEGMENT_SEPARATOR='⮀'
 
