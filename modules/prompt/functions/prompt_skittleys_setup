@@ -56,14 +56,14 @@ prompt_context() {
   # when working as another user (e.g., su), show username and make it stand out
   # DEFAULT_USER should be specified in $HOME/.zshrc
   if [[ "$user" != "$DEFAULT_USER" || -n "$SSH_CLIENT" ]]; then
-    prompt_segment red default "%(!.%{%F{blue}%}.)%}$user "
+    prompt_segment red default "%(!.%{%F{blue}%}.)$user "
   fi
 }
 
 # Git: branch/detached head, dirty status
 prompt_git() {
   if $git_status; then
-    prompt_segment blue white '${(e)git_info[prompt]}${git_info[status]}'
+    prompt_segment blue white '${git_info[status]}'
   else
     prompt_segment blue white
   fi
@@ -117,7 +117,7 @@ function prompt_skittleys_setup {
   zstyle ':prezto:module:git:info:added' format ' %{%F{green}%}✚%{%f%}'
   zstyle ':prezto:module:git:info:ahead' format ' %{%F{yellow}%}⬆%{%f%}'
   zstyle ':prezto:module:git:info:behind' format ' %{%F{yellow}%}⬇%{%f%}'
-  zstyle ':prezto:module:git:info:branch' format '⭠ %b'
+  zstyle ':prezto:module:git:info:branch' format '⚑ %b'
   zstyle ':prezto:module:git:info:commit' format ':%{%F{green}%}➦ %.7c%{%f%}'
   zstyle ':prezto:module:git:info:deleted' format ' %{%F{red}%}✖%{%f%}'
   zstyle ':prezto:module:git:info:modified' format ' %{%F{black}%}✱%{%f%}'
@@ -126,9 +126,7 @@ function prompt_skittleys_setup {
   zstyle ':prezto:module:git:info:stashed' format ' %{%F{cyan}%}✭%{%f%}'
   zstyle ':prezto:module:git:info:unmerged' format ' %{%F{yellow}%}═%{%f%}'
   zstyle ':prezto:module:git:info:untracked' format ' %{%F{white}%}?%{%f%}'
-  zstyle ':prezto:module:git:info:keys' format \
-    'prompt' '$(coalesce "%b" "%p" "%c")%s' \
-    'status' '%A%B%S%a%d%m%r%U%u'
+  zstyle ':prezto:module:git:info:keys' format 'status' '%b%C%A%B%S%a%d%m%r%U%u'
     
 PROMPT='%{%f%b%k%}$(build_prompt) '
 RPROMPT='$(prompt_context)%t'
