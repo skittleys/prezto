@@ -60,7 +60,6 @@ prompt_context() {
   fi
 }
 
-# Git: branch/detached head, dirty status
 prompt_git() {
   if $git_status; then
     prompt_segment blue white '${git_info[status]}'
