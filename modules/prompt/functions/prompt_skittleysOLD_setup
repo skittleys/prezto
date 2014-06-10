@@ -23,8 +23,8 @@ function prompt_skittleys_precmd {
 # rendering default background/foreground.
 prompt_segment() {
   local bog fog
-  [[ -n $1 ]] && bog="%K{$1}"
-  [[ -n $2 ]] && fog="%F{$2}"
+  [[ -n $1 ]] && bog="%K{$1}" || bog="%k"
+  [[ -n $2 ]] && fog="%F{$2}" || fog="%f"
   if [[ $CURRENT_BOG != 'NONE' && $1 != $CURRENT_BOG ]]; then
     echo -n " %{$bog%F{$CURRENT_BOG}%}$SEGMENT_SEPARATOR%{$fog%} "
   else
@@ -56,7 +56,7 @@ prompt_context() {
   # when working as another user (e.g., su), show username and make it stand out
   # DEFAULT_USER should be specified in $HOME/.zshrc
   if [[ "$user" != "$DEFAULT_USER" || -n "$SSH_CLIENT" ]]; then
-    prompt_segment red white "%(!.%{%F{blue}%}.)$user "
+    prompt_segment red default "%(!.%{%F{blue}%}.)$user "
   fi
 }
 

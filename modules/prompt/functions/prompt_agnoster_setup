@@ -142,6 +142,7 @@ function prompt_agnoster_setup {
   # Add hook for calling git-info before each command.
   add-zsh-hook precmd prompt_agnoster_precmd
 
+  zstyle ':prezto:module:git:info' verbose 'yes'
   zstyle ':prezto:module:editor' completing '%B%F{red}...%f%b'
   zstyle ':prezto:module:editor:keymap:primary' overwrite ' %F{red}♺%f'
   zstyle ':prezto:module:editor:keymap' primary ' %B%F{red}❯%F{yellow}❯%F{green}❯%f%b'
