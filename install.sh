@@ -25,8 +25,7 @@ for zfile in ${zlist[@]}; do
 	fi
 done
 
-
-# make /etc/zsh/zshrc
+# create /etc/zsh/zshrc
 sudo bash -c "echo -e 'source /etc/zsh/zpreztorc\nsource /usr/lib/prezto/init.zsh\nsource /usr/lib/prezto/runcoms/zshrc' >| /etc/zsh/zshrc" && echo "/etc/zsh/zshrc modified"
 
 # create a user-specific .zshrc
