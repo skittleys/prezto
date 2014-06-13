@@ -6,30 +6,29 @@
 ##      Aliases       ##
 ########################
 
+## apt-cache
+alias mad='apt-cache madison'
+alias acs='apt-cache search'
+alias acp='apt-cache policy'
+alias acsh='apt-cache show'
+alias acsp='apt-cache showpkg'
+alias acshp='apt-cache showpkg'
+alias rdep='apt-cache rdepends'
+
 ## apt-get
 alias inst='sudo apt-get install'
+alias apt-up='sudo apt-get update && sudo apt-get upgrade'
+alias ad='sudo apt-get update'
+alias ag='sudo apt-get upgrade'
+alias asou='apt-get source'
+alias abd='sudo apt-get build-dep'
 
-## apt-cache
 
 ## other
+alias sapt='sudo aptitude'
+alias findpkg='dpkg -l | grep'
 
------------------------------
 
-
-# Aliases ###################################################################
-# These are for more obscure uses of apt-get and aptitude that aren't covered
-# below.
-alias age='apt-get'
-alias api='aptitude'
-
-# Some self-explanatory aliases
-alias acs="apt-cache search"
-alias aps='aptitude search'
-alias as="aptitude -F \"* %p -> %d \n(%v/%V)\" \
-		--no-gui --disable-columns search"	# search package
-
-# apt-file
-alias afs='apt-file search --regexp'
 
 
 # These are apt-get only
