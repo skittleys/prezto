@@ -116,7 +116,7 @@ function prompt_skittleys_setup {
   zstyle ':prezto:module:git:info:added' format ' %{%F{green}%}✚%{%f%}'
   zstyle ':prezto:module:git:info:ahead' format ' %{%F{yellow}%}⬆%{%f%}'
   zstyle ':prezto:module:git:info:behind' format ' %{%F{yellow}%}⬇%{%f%}'
-  zstyle ':prezto:module:git:info:branch' format '⚑ %b'
+  zstyle ':prezto:module:git:info:branch' format '⚑  %b'
   zstyle ':prezto:module:git:info:commit' format ':%{%F{green}%}➦ %.7c%{%f%}'
   zstyle ':prezto:module:git:info:deleted' format ' %{%F{red}%}✖%{%f%}'
   zstyle ':prezto:module:git:info:modified' format ' %{%F{black}%}✱%{%f%}'
