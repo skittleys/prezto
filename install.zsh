@@ -13,11 +13,9 @@ setopt EXTENDED_GLOB
 
 # Give write permissions to sudoers group
 if [ 'grep -E -e "^sudo:" /etc/group' ]; then
-        sudo chgrp -R sudo /usr/lib/prezto
-        sudo chgrp -R sudo /etc/zsh
+        sudo chgrp -R sudo /usr/lib/prezto && sudo chgrp -R sudo /etc/zsh && echo "Write permissions granted to group sudo"
 elif [ 'grep -E -e "^wheel:" /etc/group' ]; then
-        sudo chgrp -R wheel /usr/lib/prezto
-        sudo chgrp -R wheel /etc/zsh
+        sudo chgrp -R wheel /usr/lib/prezto && sudo chgrp -R wheel /etc/zsh && echo "Write permissions granted to group wheel"
 else
         echo "Neither group wheel nor sudo exists. Permissions have not been changed."
         exit 2
@@ -43,4 +41,3 @@ echo -e "source /etc/zsh/zpreztorc\nsource /usr/lib/prezto/init.zsh\nsource /usr
 # create a user-specific .zshrc
 [[ -e $HOME/.zshrc ]] && cp $HOME/.zshrc $HOME/zshrc-backup && echo "backed up .zshrc to zshrc-backup"
 echo -e "source /usr/lib/prezto/runcoms/zshrc\n\nDEFAULT_USER="`whoami` >| $HOME/.zshrc && echo "created .zshrc"
-
