@@ -41,3 +41,18 @@ echo -e "source /etc/zsh/zpreztorc\nsource /usr/lib/prezto/init.zsh\nsource /usr
 # create a user-specific .zshrc
 [[ -e $HOME/.zshrc ]] && cp $HOME/.zshrc $HOME/zshrc-backup && echo "backed up .zshrc to zshrc-backup"
 echo -e "source /usr/lib/prezto/runcoms/zshrc\n\nDEFAULT_USER="`whoami` >| $HOME/.zshrc && echo "created .zshrc"
+
+# changes module based on package manager / distro
+if [ -d "/etc/apt" ]; then
+	sed -i~ "s/PKG_MGR/apt/" /usr/lib/prezto/runcoms/zpreztorc
+elif [ -f "/etc/pacman.conf" ]; then
+	sed -i~ "s/PKG_MGR/pacman/" /usr/lib/prezto/runcoms/zpreztorc
+elif [ -f "/etc/yum.conf" ]; then
+	sed -i~ "s/PKG_MGR/yum/" /usr/lib/prezto/runcoms/zpreztorc
+elif [ -d "/etc/portage" || -d "etc/urpmi" || -d "/etc/zypp" ]; then
+	echo "Sorry, there is no module available for this package manager."
+	sed -i~ "/^\s\s'PKG_MGR' \\\/d" /usr/lib/prezto/runcoms/zpreztorc
+else
+	echo "Sorry, package manager was not detected. Please add module manually."
+	sed -i~ "/^\s\s'PKG_MGR' \\\/d" /usr/lib/prezto/runcoms/zpreztorc
+fi
