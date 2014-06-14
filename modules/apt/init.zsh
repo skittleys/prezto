@@ -23,132 +23,17 @@ alias ag='sudo apt-get upgrade'
 alias asou='apt-get source'
 alias abd='sudo apt-get build-dep'
 
-
-## other
+## dpkg
 alias sapt='sudo aptitude'
 alias findpkg='dpkg -l | grep'
 
+# apt-file
+alias afs='apt-file search --regexp'
 
 
-
-# These are apt-get only
-alias asrc='apt-get source'
-alias app='apt-cache policy'
-
-# superuser operations ######################################################
-if [[ $use_sudo -eq 1 ]]; then
-# commands using sudo #######
-    alias aac='sudo $apt_pref autoclean'
-    alias abd='sudo $apt_pref build-dep'
-    alias ac='sudo $apt_pref clean'
-    alias ad='sudo $apt_pref update'
-    alias adg='sudo $apt_pref update && sudo $apt_pref upgrade'
-    alias adu='sudo $apt_pref update && sudo $apt_pref dist-upgrade'
-    alias afu='sudo apt-file update'
-    alias ag='sudo $apt_pref upgrade'
-    alias ai='sudo $apt_pref install'
-    # Install all packages given on the command line while using only the first word of each line:
-    # acs ... | ail
-    alias ail="sed -e 's/  */ /g' -e 's/ *//' | cut -s -d ' ' -f 1 | "' xargs sudo $apt_pref install'
-    alias ap='sudo $apt_pref purge'
-    alias ar='sudo $apt_pref remove'
-
-    # apt-get only
-    alias ads='sudo apt-get dselect-upgrade'
-
-    # Install all .deb files in the current directory.
-    # Warning: you will need to put the glob in single quotes if you use:
-    # glob_subst
-    alias dia='sudo dpkg -i ./*.deb'
-    alias di='sudo dpkg -i'
-
-    # Remove ALL kernel images and headers EXCEPT the one in use
-    alias kclean='sudo aptitude remove -P ?and(~i~nlinux-(ima|hea) \
-        ?not(~n`uname -r`))'
-
-
-# commands using su #########
-else
-    alias aac='su -ls \'$apt_pref autoclean\' root'
-    abd() {
-        cmd="su -lc '$apt_pref build-dep $@' root"
-        print "$cmd"
-        eval "$cmd"
-    }
-    alias ac='su -ls \'$apt_pref clean\' root'
-    alias ad='su -lc \'$apt_pref update\' root'
-    alias adg='su -lc \'$apt_pref update && aptitude safe-upgrade\' root'
-    alias adu='su -lc \'$apt_pref update && aptitude dist-upgrade\' root'
-    alias afu='su -lc "apt-file update"'
-    alias ag='su -lc \'$apt_pref safe-upgrade\' root'
-    ai() {
-        cmd="su -lc 'aptitude -P install $@' root"
-        print "$cmd"
-        eval "$cmd"
-    }
-    ap() {
-        cmd="su -lc '$apt_pref -P purge $@' root"
-        print "$cmd"
-        eval "$cmd"
-    }
-    ar() {
-        cmd="su -lc '$apt_pref -P remove $@' root"
-        print "$cmd"
-        eval "$cmd"
-    }
-
-    # Install all .deb files in the current directory
-    # Assumes glob_subst is off
-    alias dia='su -lc "dpkg -i ./*.deb" root'
-    alias di='su -lc "dpkg -i" root'
-
-    # Remove ALL kernel images and headers EXCEPT the one in use
-    alias kclean='su -lc '\''aptitude remove -P ?and(~i~nlinux-(ima|hea) \
-        ?not(~n`uname -r`))'\'' root'
-fi
-
-# Completion ################################################################
-
-#
-# Registers a compdef for $1 that calls $apt_pref with the commands $2
-# To do that it creates a new completion function called _apt_pref_$2
-#
-apt_pref_compdef() {
-    local f fb
-    f="_apt_pref_${2}"
-
-    eval "function ${f}() {
-        shift words; 
-	service=\"\$apt_pref\"; 
-	words=(\"\$apt_pref\" '$2' \$words); 
-	((CURRENT++))
-	test \"\${apt_pref}\" = 'aptitude' && _aptitude || _apt
-    }"
-
-    compdef "$f" "$1"
-}
-
-apt_pref_compdef aac "autoclean"
-apt_pref_compdef abd "build-dep"
-apt_pref_compdef ac  "clean"
-apt_pref_compdef ad  "update"
-apt_pref_compdef afu "update"
-apt_pref_compdef ag  "upgrade"
-apt_pref_compdef ai  "install"
-apt_pref_compdef ail "install"
-apt_pref_compdef ap  "purge"
-apt_pref_compdef ar  "remove"
-apt_pref_compdef ads "dselect-upgrade"
-
-# Misc. #####################################################################
-# print all installed packages
-alias allpkgs='aptitude search -F "%p" --disable-columns ~i'
-
-# Create a basic .deb package
-alias mydeb='time dpkg-buildpackage -rfakeroot -us -uc'
-
-
-# Functions #################################################################
+########################
+##     Functions      ##
+########################
 # create a simple script that can be used to 'duplicate' a system
 apt-copy() {
     print '#!/bin/sh'"\n" > apt-copy.sh
@@ -221,4 +106,3 @@ function apt-list-packages {
     sort -n | \
     awk '{print $1" "$2}'
 }
-
