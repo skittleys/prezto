@@ -13,9 +13,9 @@ setopt EXTENDED_GLOB
 
 # Give write permissions to sudoers group
 if [ 'grep -E -e "^sudo:" /etc/group' ]; then
-        sudo chgrp -R sudo /usr/lib/prezto && sudo chgrp -R sudo /etc/zsh && echo "Write permissions granted to group sudo"
+        sudo chgrp -R sudo /usr/lib/prezto && sudo chgrp -R sudo /etc/zsh && sudo -R chmod g+w /usr/lib/prezto && sudo -R chmod g+w /etc/zsh && echo "Write permissions granted to group sudo"
 elif [ 'grep -E -e "^wheel:" /etc/group' ]; then
-        sudo chgrp -R wheel /usr/lib/prezto && sudo chgrp -R wheel /etc/zsh && echo "Write permissions granted to group wheel"
+        sudo chgrp -R wheel /usr/lib/prezto && sudo chgrp -R wheel /etc/zsh && sudo -R chmod g+w /usr/lib/prezto && sudo -R chmod g+w /etc/zsh && echo "Write permissions granted to group wheel"
 else
         echo "Neither group wheel nor sudo exists. Permissions have not been changed."
         exit 2
