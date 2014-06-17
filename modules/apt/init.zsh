@@ -106,3 +106,16 @@ function apt-list-packages {
     sort -n | \
     awk '{print $1" "$2}'
 }
+
+
+
+## skittleys' own invention
+function desc {
+if [[ -n $1 ]]; then
+	for i in $@
+	do 
+		res=$(apt-cache show $i | grep -m 1 "Description\(-en\)\?:" | sed "s/Description\(-en\)\?: //")
+		echo -e "\e[33m$i\e[0m: $res"
+	done
+    fi
+}
