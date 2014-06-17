@@ -25,7 +25,7 @@ alias abd='sudo apt-get build-dep'
 
 ## dpkg
 alias sapt='sudo aptitude'
-alias syn='sudo synaptic'
+alias syn='sudo synaptic 2> /dev/null &'
 alias findpkg='dpkg -l | grep'
 
 # apt-file
