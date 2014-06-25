@@ -10,7 +10,61 @@ if [[ -s "${ZDOTDIR:-$HOME}/.zprezto/init.zsh" ]]; then
   source "${ZDOTDIR:-$HOME}/.zprezto/init.zsh"
 fi
 
-# Customize to your needs...
+###################
+### Merged from zprofile
+
+#
+# Editors
+#
+
+export EDITOR='nano'
+export VISUAL='nano'
+export PAGER='less'
+
+#
+# Language
+#
+
+if [[ -z "$LANG" ]]; then
+    export LANG='en_CA.UTF-8'
+fi
+
+#
+# Paths
+#
+
+# Ensure path arrays do not contain duplicates.
+typeset -gU cdpath fpath mailpath path
+
+# Set the the list of directories that cd searches.
+# cdpath=(
+#   $cdpath
+# )
+
+# Set the list of directories that Zsh searches for programs.
+path=(
+  /usr/local/{bin,sbin}
+    $path
+    )
+
+#
+# Less
+#
+
+# Set the default Less options.
+export LESS="-RMI"
+
+# Set the Less input preprocessor.
+if (( $+commands[lesspipe.sh] )); then
+  export LESSOPEN='| /usr/bin/env lesspipe.sh %s 2>&-'
+fi
+
+
+###################
+
+# sticking custom completers in modules/completion so they're in my repo, not the external zsh-completions
+fpath=(/usr/lib/prezto/modules/completion $fpath)
+
 bindkey '^[[A' history-substring-search-up
 bindkey '^[[B' history-substring-search-down
 
@@ -18,6 +72,7 @@ bindkey '^[[B' history-substring-search-down
 # (alternatively, sudo chsh to zsh)
 # alias sudo='nocorrect sudo '
 
+# for use with prompt, to only display $user when not me
 DEFAULT_USER="cm"
 
 

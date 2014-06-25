@@ -149,6 +149,8 @@ else
   alias du='du -h'
 fi
 
+is-callable 'source-highlight' && alias soh='source-highlight -oSTDOUT -fesc -i'
+
 if (( $+commands[htop] )); then
   alias top=htop
 else

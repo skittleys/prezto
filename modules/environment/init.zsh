@@ -38,7 +38,7 @@ unsetopt CHECK_JOBS       # Don't report on jobs when shell exit.
 #
 
 if zstyle -t ':prezto:environment:grep' color; then
-  export GREP_COLOR='37;45'
+  export GREP_COLORS='fn=34:mt=37;45:se=33:ln=36'
   export GREP_OPTIONS='--color=auto'
 fi
 
