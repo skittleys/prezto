@@ -101,7 +101,7 @@ kerndeb () {
 }
 
 # List packages by size
-function apt-list-packages {
+apt-list-packages() {
     dpkg-query -W --showformat='${Installed-Size} ${Package} ${Status}\n' | \
     grep -v deinstall | \
     sort -n | \
@@ -111,7 +111,7 @@ function apt-list-packages {
 
 
 ## skittleys' own invention
-function desc {
+desc() {
 if [[ -n $1 ]]; then
 	for i in $@
 	do 
