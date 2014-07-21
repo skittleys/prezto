@@ -108,7 +108,19 @@ apt-list-packages() {
     awk '{print $1" "$2}'
 }
 
+# CowBuilder
 
+cb-shell() {
+    chr=$1 ; shift
+    sudo cowbuilder \
+    	--bindmount $HOME \
+    	--login \
+    	--basepath=/var/cache/pbuilder/base-${chr}.cow $@
+}
+
+cb-shell-save() {
+    cb-shell "$@" --save-after-login
+}
 
 ## skittleys' own invention
 desc() {
