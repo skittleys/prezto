@@ -3,7 +3,7 @@
 #
 # Authors:
 #   Sorin Ionescu <sorin.ionescu@gmail.com>
-#
+#   skittleys
 
 #
 # Settings
@@ -29,8 +29,14 @@ zstyle -s ':prezto:module:git:status:ignore' submodules '_git_status_ignore_subm
 # Git
 alias g='git'
 
+# Add (a)
+alias ga='git add'
+alias gap='git add --patch'
+alias gai='git add --interactive'
+
 # Branch (b)
 alias gb='git branch'
+alias gba='git branch -a'
 alias gbc='git checkout -b'
 alias gbl='git branch -v'
 alias gbL='git branch -av'
@@ -38,10 +44,11 @@ alias gbx='git branch -d'
 alias gbX='git branch -D'
 alias gbm='git branch -m'
 alias gbM='git branch -M'
+alias gbr='git branch -r'
 alias gbs='git show-branch'
 alias gbS='git show-branch -a'
 
-# Commit (c)
+# Commit (c) (or checkout...)
 alias gc='git commit --verbose'
 alias gca='git commit --verbose --all'
 alias gcm='git commit --message'
@@ -65,14 +72,18 @@ alias gCO='gCo $(gCl)'
 alias gCt='git checkout --theirs --'
 alias gCT='gCt $(gCl)'
 
-# Data (d)
-alias gd='git ls-files'
-alias gdc='git ls-files --cached'
-alias gdx='git ls-files --deleted'
-alias gdm='git ls-files --modified'
-alias gdu='git ls-files --other --exclude-standard'
-alias gdk='git ls-files --killed'
-alias gdi='git status --porcelain --short --ignored | sed -n "s/^!! //p"'
+
+# Data (ls)
+alias gls='git ls-files'
+#alias gdc='git ls-files --cached'
+#alias gdx='git ls-files --deleted'
+#alias gdm='git ls-files --modified'
+#alias gdu='git ls-files --other --exclude-standard'
+#alias gdk='git ls-files --killed'
+#alias gdi='git status --porcelain --short --ignored | sed -n "s/^!! //p"'
+
+# Diff (d)
+alias gd='git diff'
 
 # Fetch (f)
 alias gf='git fetch'
@@ -89,9 +100,6 @@ alias ggv='git grep --invert-match'
 alias ggw='git grep --word-regexp'
 
 # Index (i)
-alias gia='git add'
-alias giA='git add --patch'
-alias giu='git add --update'
 alias gid='git diff --no-ext-diff --cached'
 alias giD='git diff --no-ext-diff --cached --word-diff'
 alias gir='git reset'
@@ -100,10 +108,11 @@ alias gix='git rm -r --cached'
 alias giX='git rm -rf --cached'
 
 # Log (l)
-alias gl='git log --topo-order --pretty=format:${_git_log_medium_format}'
-alias gls='git log --topo-order --stat --pretty=format:${_git_log_medium_format}'
-alias gld='git log --topo-order --stat --patch --full-diff --pretty=format:${_git_log_medium_format}'
-alias glo='git log --topo-order --pretty=format:${_git_log_oneline_format}'
+alias gl='git log --pretty=format:${_git_log_medium_format}'
+alias glt='git log --topo-order --pretty=format:${_git_log_medium_format}'
+#alias gls='git log --topo-order --stat --pretty=format:${_git_log_medium_format}'
+#alias gld='git log --topo-order --stat --patch --full-diff --pretty=format:${_git_log_medium_format}'
+#alias glo='git log --topo-order --pretty=format:${_git_log_oneline_format}'
 alias glg='git log --topo-order --all --graph --pretty=format:${_git_log_oneline_format}'
 alias glb='git log --topo-order --pretty=format:${_git_log_brief_format}'
 alias glc='git shortlog --summary --numbered'
@@ -142,15 +151,18 @@ alias gRp='git remote prune'
 alias gRs='git remote show'
 alias gRb='git-hub-browse'
 
+
+alias gs='git status'
+
 # Stash (s)
-alias gs='git stash'
-alias gsa='git stash apply'
+alias gst='git stash'
+alias gsta='git stash apply'
 alias gsx='git stash drop'
 alias gsX='git-stash-clear-interactive'
 alias gsl='git stash list'
 alias gsL='git-stash-dropped'
 alias gsd='git stash show --patch --stat'
-alias gsp='git stash pop'
+alias gstp='git stash pop'
 alias gsr='git-stash-recover'
 alias gss='git stash save --include-untracked'
 alias gsS='git stash save --patch --no-keep-index'
@@ -180,3 +192,5 @@ alias gwC='git clean -f'
 alias gwx='git rm -r'
 alias gwX='git rm -rf'
 
+# Extra
+alias gdr='git diff master origin/master' # show changes on upstream branch
