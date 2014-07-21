@@ -31,6 +31,10 @@ alias findpkg='dpkg -l | grep'
 # apt-file
 alias afs='apt-file search --regexp'
 
+## packaging
+alias dquilt="quilt --quiltrc=$HOME/.quiltrc-dpkg"
+alias piu="sudo piuparts -b /var/cache/pbuilder/piuparts/piupartz.tgz -m http://cdn.debian.net/debian"
+
 
 ########################
 ##     Functions      ##
