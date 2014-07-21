@@ -49,6 +49,11 @@ fi
 
 # Group matches and describe.
 zstyle ':completion:*:*:*:*:*' menu select=2
+zstyle ':completion:*' accept-exact false
+zstyle ':completion:*' expand prefix suffix
+#zstyle ':completion:*' regular 'false'
+
+
 zstyle ':completion:*:matches' group 'yes'
 zstyle ':completion:*:options' description 'yes'
 zstyle ':completion:*:options' auto-description '%d'
@@ -59,10 +64,12 @@ zstyle ':completion:*:warnings' format ' %B%F{red}-- no matches found --%f%b'
 zstyle ':completion:*:default' list-prompt '%S%M matches%s'
 zstyle ':completion:*' format ' %F{blue}-- %d --%f'
 zstyle ':completion:*' group-name ''
+zstyle ':completion:*:-command-' group-order \
+    builtins functions commands aliases suffix-aliases
 zstyle ':completion:*' verbose yes
 
 # Fuzzy match mistyped completions.
-zstyle ':completion:*' completer _expand _expand_alias _complete _ignored _match _correct _approximate  _prefix
+zstyle ':completion:*' completer _expand _complete _ignored _match _correct _approximate  _prefix
 zstyle ':completion:*:match:*' original only
 zstyle ':completion:*:approximate:*' max-errors 1 numeric
 
