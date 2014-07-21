@@ -211,6 +211,7 @@ bindkey '^[[1;5C' forward-word
 bindkey '^[[1;5D' backward-word
 
 
+
 #
 # Emacs Key Bindings
 #
@@ -299,7 +300,7 @@ for keymap in 'emacs' 'viins'; do
   bindkey -M "$keymap" "$key_info[BackTab]" reverse-menu-complete
 
   # Complete in the middle of word.
-  bindkey -M "$keymap" "$key_info[Control]I" expand-or-complete
+  bindkey -M "$keymap" "$key_info[Control]I" menu-expand-or-complete
 
   # Expand .... to ../..
   if zstyle -t ':prezto:module:editor' dot-expansion; then
