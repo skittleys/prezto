@@ -8,6 +8,7 @@
 # Extra functions for features in prompts
 source "/usr/lib/prezto/modules/prompt/functions/get_short_path.zsh"
 source "/usr/lib/prezto/modules/prompt/functions/git-omz.zsh" 
+source "/usr/lib/prezto/modules/prompt/zsh-vcs-prompt/zshrc.sh" 
 
 # Load and execute the prompt theming system.
 autoload -Uz promptinit && promptinit
