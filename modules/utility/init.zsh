@@ -62,7 +62,7 @@ alias type='type -a'
 # using color=always here to ensure 'less -R' works properly;
 # alias will not expand during scripts, ensuring no breakage
 # GREP_OPTIONS='color=auto' already defined in 'environment' module
-alias grep="${aliases[grep]:-grep} --color=always"
+alias grep="${aliases[grep]:-grep} --color=auto"
 
 # ls
 if is-callable 'dircolors'; then
