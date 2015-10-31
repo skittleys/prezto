@@ -76,5 +76,3 @@ bindkey '^[[B' history-substring-search-down
 
 # for use with prompt, to only display $user when not me
 DEFAULT_USER="cm"
-
-

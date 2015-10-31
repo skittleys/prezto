@@ -157,6 +157,5 @@ zstyle ':prezto:module:syntax-highlighting' highlighters \
 # Auto start a session when Zsh is launched in a SSH connection.
 # zstyle ':prezto:module:tmux:auto-start' remote 'yes'
 
-#########################################################
-
-## Extra customizations
+# Integrate with iTerm2.
+# zstyle ':prezto:module:tmux:iterm' integrate 'yes'
