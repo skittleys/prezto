@@ -109,7 +109,6 @@ alias gix='git rm -r --cached'
 alias giX='git rm -rf --cached'
 
 # Log (l)
-<<<<<<< HEAD
 alias gl='git log --pretty=format:${_git_log_medium_format}'
 alias glt='git log --topo-order --pretty=format:${_git_log_medium_format}'
 #alias gls='git log --topo-order --stat --pretty=format:${_git_log_medium_format}'
