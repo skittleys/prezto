@@ -194,4 +194,5 @@ alias gwx='git rm -r'
 alias gwX='git rm -rf'
 
 # Extra
-alias gdr='git diff master origin/master' # show changes on upstream branch
+alias gdr='git diff master origin/master'   # show changes on upstream branch
+alias git-all='find / -name ".git"'	    # find all git repos on the system
