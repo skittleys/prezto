@@ -154,6 +154,7 @@ alias gRb='git-hub-browse'
 
 
 alias gs='git status'
+alias gss='git status --short'
 
 # Stash (s)
 alias gst='git stash'
@@ -165,7 +166,7 @@ alias gsL='git-stash-dropped'
 alias gsd='git stash show --patch --stat'
 alias gstp='git stash pop'
 alias gsr='git-stash-recover'
-alias gss='git stash save --include-untracked'
+alias gsu='git stash save --include-untracked'
 alias gsS='git stash save --patch --no-keep-index'
 alias gsw='git stash save --include-untracked --keep-index'
 
