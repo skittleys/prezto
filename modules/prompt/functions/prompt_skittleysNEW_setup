@@ -38,6 +38,7 @@ function prompt_skittleys_end_segment {
 
 function prompt_skittleys_build_prompt {
   prompt_skittleys_start_segment magenta white '$_prompt_skittleys_pwd'
+  #prompt_skittleys_start_segment magenta white "$(get_short_path)"
 
   if [[ -n "$git_info" ]]; then
     prompt_skittleys_start_segment blue white '${(e)git_info[ref]}${(e)git_info[status]}'
