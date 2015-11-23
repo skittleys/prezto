@@ -1,7 +1,8 @@
 # A personalized version of 
+# Jeff Sandberg's paradox theme (http://www.paradox.io/posts/9-my-new-zsh-prompt)
+# with bits of 
 # DigitalFormula's modified agnoster theme for Prezto/YADR (https://github.com/digitalformula/zsh.prompts)
-# with bits of David J. Rice's Powerline for Prezto (https://github.com/davidjrice/prezto_powerline)
-# and now lots of paradox
+# and David J. Rice's Powerline for Prezto (https://github.com/davidjrice/prezto_powerline)
 # and some rearranging and color changing and whatnot :)
 
 
